@@ -301,7 +301,7 @@ function HomePage() {
                   )}
                 </button>
                 
-                <div style={{ marginTop: '20px', padding: '12px 16px', backgroundColor: 'rgba(0, 122, 255, 0.05)', borderRadius: '8px', border: '1px solid rgba(0, 122, 255, 0.1)', fontSize: '0.85rem', color: 'var(--color-text-secondary)', lineHeight: '1.5', textAlign: 'left', width: '100%', boxSizing: 'border-box' }}>
+                <div style={{ marginTop: '12px', padding: '8px 12px', backgroundColor: 'rgba(0, 122, 255, 0.05)', borderRadius: '8px', border: '1px solid rgba(0, 122, 255, 0.1)', fontSize: '0.8rem', color: 'var(--color-text-secondary)', lineHeight: '1.4', textAlign: 'left', width: '100%', boxSizing: 'border-box' }}>
                   <strong style={{ color: 'var(--color-primary)' }}>Note:</strong> Students belonging to <strong>Rural</strong> or <strong>Kannada medium</strong> categories (e.g., GMR, GMK, 3AR, 3AK) should also check their respective General categories (e.g., GM, 3AG, SCG). If seats are unavailable in Rural/Kannada medium, they may be allotted under the General category.
                 </div>
               </form>
