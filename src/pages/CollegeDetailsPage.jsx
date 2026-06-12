@@ -17,6 +17,7 @@ function CollegeDetailsPage() {
   const [selectedCollege, setSelectedCollege] = useState(initialCollegeCode)
   const [selectedYear, setSelectedYear] = useState('All Years')
   const [selectedCategory, setSelectedCategory] = useState('All Categories')
+  const [selectedBranch, setSelectedBranch] = useState('All Branches')
   
   const [availableYears, setAvailableYears] = useState([])
   const [availableCategories, setAvailableCategories] = useState([])
@@ -52,6 +53,11 @@ function CollegeDetailsPage() {
   if (selectedYear !== 'All Years') {
     displayData = displayData.filter(r => r.year === parseInt(selectedYear))
   }
+  if (selectedBranch !== 'All Branches') {
+    displayData = displayData.filter(r => r.branchName === selectedBranch)
+  }
+  
+  const availableBranches = [...new Set(collegeData.map(r => r.branchName))].sort()
   
   // Group by branch
   const branchGroups = {}
@@ -150,6 +156,20 @@ function CollegeDetailsPage() {
               <option value="All Categories">All Categories</option>
               {availableCategories.map(c => (
                 <option key={c} value={c}>{c}</option>
+              ))}
+            </select>
+          </div>
+
+          <div className="form-group">
+            <label className="form-label">Filter by Course</label>
+            <select
+              className="form-select"
+              value={selectedBranch}
+              onChange={(e) => setSelectedBranch(e.target.value)}
+            >
+              <option value="All Branches">All Courses</option>
+              {availableBranches.map(b => (
+                <option key={b} value={b}>{b}</option>
               ))}
             </select>
           </div>
