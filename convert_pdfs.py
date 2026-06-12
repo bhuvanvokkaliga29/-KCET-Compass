@@ -374,8 +374,10 @@ def main():
     all_records = []
 
     pdf_files = [
+        ("engg_cutoff_gen.pdf", 2022, 1, "A"),
         ("engg_cutoff_gen (1).pdf", 2022, 2, "A"),
         ("engg_cutoff_gen (2).pdf", 2022, 3, "A"),
+        ("ENGG_CUTOFF_2023english.pdf", 2023, 1, "A"),
         ("ENGG_CUTOFF_2023_R2english.pdf", 2023, 2, "A"),
         ("ENR2_CUTGENenglish.pdf", 2023, 3, "A"),
         ("ENGG_CUTOFF_2024_GEN_R1english.pdf", 2024, 1, "A"),
