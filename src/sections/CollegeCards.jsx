@@ -121,7 +121,7 @@ function CollegeCards({ results, rank }) {
 
       {results.length > 12 && !showAll && (
         <div style={{ textAlign: 'center', marginTop: 'var(--space-8)' }}>
-          <button className="btn btn-secondary" onClick={() => setShowAll(true)}>
+          <button className="analyze-btn" style={{ width: 'auto', padding: '12px 32px' }} onClick={() => setShowAll(true)}>
             Show All {results.length} Colleges
           </button>
         </div>

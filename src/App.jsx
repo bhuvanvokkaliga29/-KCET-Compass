@@ -6,6 +6,7 @@ import Footer from './components/Footer'
 import HomePage from './pages/HomePage'
 import ResultsPage from './pages/ResultsPage'
 import AdminPage from './pages/AdminPage'
+import CollegeDetailsPage from './pages/CollegeDetailsPage'
 
 import { FaWhatsapp } from 'react-icons/fa'
 
@@ -18,6 +19,7 @@ function App() {
           <Route path="/" element={<HomePage />} />
           <Route path="/results" element={<ResultsPage />} />
           <Route path="/admin" element={<AdminPage />} />
+          <Route path="/college" element={<CollegeDetailsPage />} />
         </Routes>
       </AnimatePresence>
       <Footer />

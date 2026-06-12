@@ -39,6 +39,7 @@ function AnimatedCounter({ target, duration = 2000 }) {
 
 function HomePage() {
   const navigate = useNavigate()
+  const [activeTab, setActiveTab] = useState('predictor')
   const [stats, setStats] = useState({ colleges: 0, branches: 0, years: [] })
   const [form, setForm] = useState({
     rank: '',
@@ -143,9 +144,38 @@ function HomePage() {
             </motion.p>
 
             {/* ─── Analysis Form ─── */}
-            <motion.div variants={fadeUp} className="glass-panel premium-form-container" ref={formRef}>
-              <form className="analysis-form" onSubmit={handleSubmit} id="analysis-form">
-                <h3 className="analysis-form-title">🎯 KCET Analysis</h3>
+            <motion.div variants={fadeUp} className="glass-panel premium-form-container" ref={formRef} style={{ padding: 0, overflow: 'hidden' }}>
+              
+              <div style={{ display: 'flex', borderBottom: '1px solid var(--color-border)', backgroundColor: 'var(--color-bg)' }}>
+                <button 
+                  onClick={() => setActiveTab('predictor')}
+                  style={{ 
+                    flex: 1, padding: '16px', background: activeTab === 'predictor' ? 'var(--color-surface)' : 'transparent',
+                    border: 'none', borderBottom: activeTab === 'predictor' ? '3px solid var(--color-primary)' : '3px solid transparent',
+                    fontWeight: activeTab === 'predictor' ? 700 : 500, fontSize: '1.05rem', cursor: 'pointer',
+                    color: activeTab === 'predictor' ? 'var(--color-text)' : 'var(--color-text-secondary)',
+                    transition: 'all 0.2s ease'
+                  }}
+                >
+                  🎯 Rank Predictor
+                </button>
+                <button 
+                  onClick={() => setActiveTab('explorer')}
+                  style={{ 
+                    flex: 1, padding: '16px', background: activeTab === 'explorer' ? 'var(--color-surface)' : 'transparent',
+                    border: 'none', borderBottom: activeTab === 'explorer' ? '3px solid var(--color-primary)' : '3px solid transparent',
+                    fontWeight: activeTab === 'explorer' ? 700 : 500, fontSize: '1.05rem', cursor: 'pointer',
+                    color: activeTab === 'explorer' ? 'var(--color-text)' : 'var(--color-text-secondary)',
+                    transition: 'all 0.2s ease'
+                  }}
+                >
+                  🏫 College Explorer
+                </button>
+              </div>
+
+              {activeTab === 'predictor' ? (
+                <form className="analysis-form" onSubmit={handleSubmit} id="analysis-form" style={{ padding: 'var(--space-6)' }}>
+                  <h3 className="analysis-form-title" style={{ display: 'none' }}>🎯 KCET Analysis</h3>
                 
                 <div className="form-grid">
                   <div className="form-group full-width">
@@ -305,6 +335,22 @@ function HomePage() {
                   <strong style={{ color: 'var(--color-primary)' }}>Note:</strong> Students belonging to <strong>Rural</strong> or <strong>Kannada medium</strong> categories (e.g., GMR, GMK, 3AR, 3AK) should also check their respective General categories (e.g., GM, 3AG, SCG). If seats are unavailable in Rural/Kannada medium, they may be allotted under the General category.
                 </div>
               </form>
+              ) : (
+                <div style={{ padding: 'var(--space-6)', textAlign: 'center' }}>
+                  <div style={{ fontSize: '48px', marginBottom: 'var(--space-4)' }}>🏫</div>
+                  <h3 style={{ fontSize: '1.5rem', marginBottom: 'var(--space-2)' }}>Explore College Cutoffs</h3>
+                  <p style={{ color: 'var(--color-text-secondary)', marginBottom: 'var(--space-6)', lineHeight: 1.6 }}>
+                    Check detailed historical cutoffs for individual engineering colleges. See ranks for all categories, branches, and years.
+                  </p>
+                  
+                  <button
+                    className="analyze-btn"
+                    onClick={(e) => { handleRipple(e); setTimeout(() => navigate('/college'), 300); }}
+                  >
+                    🔍 Open College Explorer
+                  </button>
+                </div>
+              )}
             </motion.div>
 
             {/* Stats section removed as per request */}
