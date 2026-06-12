@@ -209,8 +209,10 @@ def parse_format_b(pdf_path, year, round_num):
             continue
 
         lines = text.split('\n')
-        for line in lines:
-            line = line.strip()
+        idx = 0
+        while idx < len(lines):
+            line = lines[idx].strip()
+            idx += 1
             if not line:
                 continue
 
@@ -251,12 +253,47 @@ def parse_format_b(pdf_path, year, round_num):
 
                 if len(values) < 15:
                     continue
+                
+                # Look ahead for continuation lines of branch name
+                while idx < len(lines):
+                    next_line = lines[idx].strip()
+                    if not next_line or 'KARNATAKA EXAMINATIONS' in next_line or 'College:' in next_line or 'Course Name' in next_line or 'Seat Type:' in next_line:
+                        break
+                    # Check if next line contains data (numbers or '--')
+                    has_data = False
+                    for t in next_line.split():
+                        t_clean = t.replace('.', '').replace(',', '')
+                        if re.match(r'^\d+$', t_clean) or t == '--':
+                            has_data = True
+                            break
+                    if has_data:
+                        break
+                    # It's a continuation of the branch name
+                    branch_name += " " + next_line
+                    idx += 1
 
                 branch_code = None
                 branch_name_upper = branch_name.upper()
 
                 branch_name_to_code = {
+                    "COMPUTER SCIENCE AND ENGG(ARTIFICIAL": "CA",
+                    "COMPUTER SCIENCE AND ENGG (ARTIFICIAL": "CA",
+                    "COMPUTER SCIENCE AND ENGINEERING(ARTIFICIAL": "CA",
+                    "COMPUTER SCIENCE AND ENGINEERING (ARTIFICIAL": "CA",
+                    "COMPUTER SCIENCE(ARTIFICIAL": "CA",
+                    "COMPUTER SCIENCE (ARTIFICIAL": "CA",
+                    "COMPUTER SCIENCE AND ENGG(DATA": "DS",
+                    "COMPUTER SCIENCE AND ENGG (DATA": "DS",
+                    "COMPUTER SCIENCE AND ENGINEERING(DATA": "DS",
+                    "COMPUTER SCIENCE AND ENGINEERING (DATA": "DS",
+                    "COMPUTER SCIENCE(DATA": "DS",
+                    "COMPUTER SCIENCE (DATA": "DS",
+                    "COMPUTER SCIENCE AND ENGG(CYBER": "CY",
+                    "COMPUTER SCIENCE AND ENGG (CYBER": "CY",
+                    "COMPUTER SCIENCE AND ENGINEERING(CYBER": "CY",
+                    "COMPUTER SCIENCE AND ENGINEERING (CYBER": "CY",
                     "COMPUTER SCIENCE AND ENGINEERING": "CS",
+                    "COMPUTER SCIENCE AND ENGG": "CS",
                     "COMPUTER SCIENCE": "CS",
                     "COMPUTER": "CS",
                     "INFORMATION SCIENCE AND ENGINEERING": "IE",
@@ -277,8 +314,6 @@ def parse_format_b(pdf_path, year, round_num):
                     "ARTIFICIAL INTELLIGENCE AND": "AD",
                     "ARTIFICIAL INTELLIGENCE": "AI",
                     "ARTIFICIAL": "AI",
-                    "COMPUTER SCIENCE (ARTIFICIAL INTELLIGENCE AND MACHINE LEARNING)": "CA",
-                    "COMPUTER SCIENCE (ARTIFICIAL": "CA",
                     "CS (AI, MACHINE LEARNING)": "CA",
                     "CS (AI,": "CA",
                     "AERO SPACE ENGINEERING": "SE",
